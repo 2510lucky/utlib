@@ -1,20 +1,13 @@
-from django.http import request, HttpResponse
 from django.shortcuts import render
-import os
-from django.conf import settings
-
-
-def removepunc(request):
-    # return HttpResponse("hi this is home page")
-    # print(request.GET.get('text','default'))
-    return render(request,'index.html')
-    print(text)
-
-def contact(request):
-    return HttpResponse("hi this is contact page")
 
 def home(request):
-    return HttpResponse('finally done some part')
+    if request.method == 'POST':
+        text = request.POST.get('text_input', '')
+        # Redirect to the 'result' view and pass the text as a URL parameter
+        return redirect(f'/result/?text={text}')
+    return render(request, 'home.html')
 
-def hey(request):
-    return HttpResponse("")
+def result(request):
+    # Get the text from URL parameter
+    text = request.GET.get('text', '')
+    return render(request, 'result.html', {'text': text})
