@@ -18,3 +18,6 @@ def home(request):
 
 def hey(request):
     return HttpResponse("")
+
+def __init__ (self):
+    removepuc()
