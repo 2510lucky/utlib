@@ -1,66 +1,38 @@
-{% comment %} <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Text Utils</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Input</title>
+    <script type="text/javascript">
+        function openInNewTab() {
+            var text = document.getElementById("text_input").value;
+            var url = "{% url 'result' %}?text=" + encodeURIComponent(text);
+            window.open(url, '_blank');  // Opens in a new tab
+        }
+    </script>
 </head>
 <body>
-<h1>Welcome to the text analyzer. Enter your text below</h1>
-<form action='/analyze' method='get'>
-    <textarea name='text' style='margin: 0px; width: 721px; height: 93px;'></textarea><br>
-
-    <input type="checkbox" name="removepunc"> Remove Punctuations<br>
-    <button type='submit'> Analyze Text</button>
-
-</form>
-</body> {% endcomment %}
-
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Text analyser</title>
-</head>
-<body>
-    <form action = '/removepunc' method = 'post'> 
-    <h1>Welcome to text analyser:Please enter your text</h1>
-    <textarea name = 'text' style="height: 300px; width: 1500px;">  </textarea>
-    <br>
-    <button type = 'submit'> Analyze text </button>
-
-</form>
-
-</body>
-</html> 
-
-
-
-
-
-
-
-
-{% comment %} <!DOCTYPE html>
-<html>
-    <head> 
-        <meta charset = "UTF-8">
-        <title> text analyser </title>
-
-
-
-    </head>
-
-<body>
-
-<h1>Welcome to text analyser:Please enter your text</h1>
-<form action = '/removepunc' method = 'get'> 
-
-<textarea name = 'text' style="height: 300px; width: 1500px;">  </textarea>
-<br>
-<button type = 'submit'> Analyze text </button>
-
-</form>
-
+    <h1>Enter some text</h1>
+    <form method="POST" onsubmit="event.preventDefault(); openInNewTab();">
+        {% csrf_token %}
+        <input type="text" id="text_input" name="text_input" placeholder="Type something..." required>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
-    {% endcomment %}
+result.html (The page to show the submitted text):
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+</head>
+<body>
+    <h1>{{ text }}</h1>
+</body>
+</html>
